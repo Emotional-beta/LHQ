@@ -2,18 +2,21 @@ import { preferences, relationalStore } from '@kit.ArkData';
 import { BusinessError } from '@kit.BasicServicesKit';
 import axios, { AxiosError, AxiosResponse } from '@ohos/axios';
 
-interface Student {
-  _id:number,
-  name:string,
-  age:number//属性
-}
 
+interface IEEE {
+  ieee:string
+}
 @Entry
 @Component
+
 struct DbPage {
-  @State message: string = 'Hello World';
-  store:relationalStore.RdbStore | null = null;
-  stuList:Student[]=[]//对象类型数组
+
+  @State rname: string = 'N/A';
+  @State battery: string = 'N/A';
+  @State rssi: string = 'N/A';
+  @State value: string = 'N/A';
+  @State updateTime: string = 'N/A';
+
 
   build() {
     Column({space:20}){
@@ -31,10 +34,20 @@ struct DbPage {
           let cookie = pref.getSync('cookie','') as string;
           // 省略4个参数 获取所有设备信息
           //传入IEEE 获取指定设备信息
-          axios.post(url,'5c0272fffe8576cb',{timeout:1000,headers:{'Content-Type':'application/json','cookie':cookie}})
+          axios.post(url, {ieee:'5c0272fffe8576cb'} as IEEE,{timeout:1000,headers:{'Content-Type':'application/json','cookie':cookie}})
             .then((resp:AxiosResponse)=>{
               console.log(JSON.stringify(resp));
-              Text(resp.data.data.deviceInfos.envs.)
+              this.getUIContext().getPromptAction().showToast({ message: JSON.stringify(resp.data.data.deviceInfos.envs.rname) })
+              //this.rname=resp.data.data.deviceInfos.envs.rname;
+              //this.battery=resp.data.data.deviceInfos.envs.battery;
+              //this.rssi=resp.data.data.deviceInfos.envs.rssi;
+              //this.value=resp.data.data.deviceInfos.envs.properties.value;
+              //this.updateTime=resp.data.data.deviceInfos.envs.updateTime;
+              //Text('设备名称：'+this.rname);
+              //Text('电量：'+this.battery);
+              //Text('信号强度：'+this.rssi+'dBm');
+              //Text('活动状态：'+this.value);
+              //Text('更新时间：'+this.updateTime);
             })
             .catch((err:AxiosError)=>{
               this.getUIContext().getPromptAction().showToast({ message: err.message })
