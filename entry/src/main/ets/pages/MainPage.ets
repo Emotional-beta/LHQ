@@ -116,7 +116,7 @@ struct MainPage {
               .width(72)
             Text('标准SOS')
           }.onClick(()=>{
-            this.getUIContext().getRouter().pushUrl({url:'pages/PrefPage'});
+            this.getUIContext().getRouter().pushUrl({url:'pages/SOSPage'});
           })
         }
         GridItem(){

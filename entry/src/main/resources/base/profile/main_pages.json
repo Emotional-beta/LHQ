@@ -6,6 +6,7 @@
     "pages/ListPage",
     "pages/PrefPage",
     "pages/DbPage",
-    "pages/NetPage"
+    "pages/NetPage",
+    "pages/SOSPage"
   ]
 }
