@@ -1,0 +1,11 @@
+{
+  "src": [
+    "pages/LoginPage",
+    "pages/MainPage",
+    "pages/SwitchPage",
+    "pages/ListPage",
+    "pages/PrefPage",
+    "pages/DbPage",
+    "pages/NetPage"
+  ]
+}
