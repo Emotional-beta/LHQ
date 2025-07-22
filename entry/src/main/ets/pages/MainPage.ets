@@ -192,6 +192,7 @@ struct MainPage {
           .columnsTemplate('1fr 1fr 1fr 1fr')
           .columnsGap(20) //列间距
           .rowsGap(10) //行间距
+
         }
       }
       .tabBar('设备')

@@ -5,12 +5,12 @@
     "pages/SwitchPage",
     "pages/ListPage",
     "pages/PrefPage",
-    "pages/DbPage",
-    "pages/NetPage",
     "pages/SOSPage",
     "pages/DevicePage",
     "pages/DiscoverPage",
     "pages/MinePage",
-    "pages/ScenePage"
+    "pages/ScenePage",
+    "pages/MSPage",
+    "pages/NetPage"
   ]
 }
