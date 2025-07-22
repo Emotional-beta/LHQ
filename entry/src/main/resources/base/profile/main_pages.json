@@ -7,6 +7,10 @@
     "pages/PrefPage",
     "pages/DbPage",
     "pages/NetPage",
-    "pages/SOSPage"
+    "pages/SOSPage",
+    "pages/DevicePage",
+    "pages/DiscoverPage",
+    "pages/MinePage",
+    "pages/ScenePage"
   ]
 }

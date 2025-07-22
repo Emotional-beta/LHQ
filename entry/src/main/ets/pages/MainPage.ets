@@ -93,94 +93,129 @@ class DataProcessor {
 @Entry
 @Component
 struct MainPage {
-  @State message: string = 'Hello World';
-
   build() {
+    Tabs({barPosition:BarPosition.End}){
 
+      TabContent(){
+        Column(){
+          Grid(){//栅格式布局
+            GridItem(){
+              Column({ space: 5 }){
+                Image($r('app.media.icon_main_photo_a'))
+                  .width(72)
+                Text('智能插座')
+              }.onClick(()=>{
+                this.getUIContext().getRouter().pushUrl({url:'pages/SwitchPage'});
+              })
+            }
+            GridItem(){
+              Column({ space: 5 }){
+                Image($r('app.media.icon_main_net_a'))
+                  .width(72)
+                Text('标准SOS')
+              }.onClick(()=>{
+                this.getUIContext().getRouter().pushUrl({url:'pages/SOSPage'});
+              })
+            }
+            GridItem(){
+              Column({ space: 5 }){
+                Image($r('app.media.icon_main_cloud_a'))
+                  .width(72)
+                Text('标准人体活动传感器')
+              }.onClick(()=>{
+                this.getUIContext().getRouter().pushUrl({url:'pages/DbPage'});
+              })
+            }
+            GridItem(){
+              Column({ space: 5 }){
+                Image($r('app.media.icon_main_download_a'))
+                  .width(72)
+                Text('标准水浸传感器')
+              }.onClick(()=>{
+                this.getUIContext().getRouter().pushUrl({url:'pages/NetPage'});
+              })
+            }
+            GridItem(){
+              Column({ space: 5 }){
+                Image($r('app.media.icon_main_data_a'))
+                  .width(72)
+                Text('标准温湿度传感器')
+              }.onClick(()=>{
+                this.getUIContext().getRouter().pushUrl({url:'pages/NetPage'});
+              })
+            }
+            GridItem(){
+              Column({ space: 5 }){
+                Image($r('app.media.icon_main_scene_a'))
+                  .width(72)
+                Text('标准门磁传感器')
+              }.onClick(()=>{
+                this.getUIContext().getRouter().pushUrl({url:'pages/NetPage'});
+              })
+            }
+            GridItem(){
+              Column({ space: 5 }){
+                Image($r('app.media.icon_main_scene_a'))
+                  .width(72)
+                Text('获取所有设备信息')
+              }
+              .onClick(()=>{
+                let url = 'http://192.168.100.1/api/room/allDevAndProcess';
+                let pref=preferences.getPreferencesSync(getContext(),{name:'zbox.xml'});
+                let cookie = pref.getSync('cookie','') as string;
+                // 省略4个参数 获取所有设备信息
+                //传入IEEE 获取指定设备信息
+                axios.post(url,null,{timeout:1000,headers:{'Content-Type':'application/json','cookie':cookie}})
+                  .then((resp:AxiosResponse)=>{
+                    console.log(JSON.stringify(resp));
 
-    Column(){
-
-      Grid(){//栅格式布局
-        GridItem(){
-          Column({ space: 5 }){
-            Image($r('app.media.icon_main_photo_a'))
-              .width(72)
-            Text('智能插座')
-          }.onClick(()=>{
-            this.getUIContext().getRouter().pushUrl({url:'pages/SwitchPage'});
-          })
-        }
-        GridItem(){
-          Column({ space: 5 }){
-            Image($r('app.media.icon_main_net_a'))
-              .width(72)
-            Text('标准SOS')
-          }.onClick(()=>{
-            this.getUIContext().getRouter().pushUrl({url:'pages/SOSPage'});
-          })
-        }
-        GridItem(){
-          Column({ space: 5 }){
-            Image($r('app.media.icon_main_cloud_a'))
-              .width(72)
-            Text('标准人体活动传感器')
-          }.onClick(()=>{
-            this.getUIContext().getRouter().pushUrl({url:'pages/DbPage'});
-          })
-        }
-        GridItem(){
-          Column({ space: 5 }){
-            Image($r('app.media.icon_main_download_a'))
-              .width(72)
-            Text('标准水浸传感器')
-          }.onClick(()=>{
-            this.getUIContext().getRouter().pushUrl({url:'pages/NetPage'});
-          })
-        }
-
-        GridItem(){
-          Column({ space: 5 }){
-            Image($r('app.media.icon_main_data_a'))
-              .width(72)
-            Text('标准温湿度传感器')
-          }.onClick(()=>{
-            this.getUIContext().getRouter().pushUrl({url:'pages/NetPage'});
-          })
-        }
-        GridItem(){
-          Column({ space: 5 }){
-            Image($r('app.media.icon_main_scene_a'))
-              .width(72)
-            Text('标准门磁传感器')
-          }.onClick(()=>{
-            this.getUIContext().getRouter().pushUrl({url:'pages/NetPage'});
-          })
+                  })
+                  .catch((err:AxiosError)=>{
+                    this.getUIContext().getPromptAction().showToast({ message: err.message })
+                  })
+              })
+            }
+            GridItem(){
+              Column({ space: 5 }){
+                Image($r('app.media.icon_main_scene_a'))
+                  .width(72)
+                Text('增加新的设备')
+              }
+              .onClick(()=>{
+                this.getUIContext().getPromptAction().showToast({ message: '等待开发' })
+              })
+            }
+          }
+          .height('100%')
+          .width('100%')
+          .padding({left:18,right:18})//内边距
+          .columnsTemplate('1fr 1fr 1fr 1fr')
+          .columnsGap(20) //列间距
+          .rowsGap(10) //行间距
         }
       }
-      .height('100%')
-      .width('100%')
-      .padding({left:18,right:18})//内边距
-      .columnsTemplate('1fr 1fr 1fr 1fr')
-      .columnsGap(20) //列间距
-      .rowsGap(10) //行间距
-      Button('获取所有设备信息')
-        .width('61.8%')
-        .onClick(()=>{
-          let url = 'http://192.168.100.1/api/room/allDevAndProcess';
-          let pref=preferences.getPreferencesSync(getContext(),{name:'zbox.xml'});
-          let cookie = pref.getSync('cookie','') as string;
-          // 省略4个参数 获取所有设备信息
-          //传入IEEE 获取指定设备信息
-          axios.post(url,null,{timeout:1000,headers:{'Content-Type':'application/json','cookie':cookie}})
-            .then((resp:AxiosResponse)=>{
-              console.log(JSON.stringify(resp));
+      .tabBar('设备')
 
-            })
-            .catch((err:AxiosError)=>{
-              this.getUIContext().getPromptAction().showToast({ message: err.message })
-            })
-        })
+      TabContent(){
+        Text('各个房间').fontSize(20)
+      }
+      .tabBar('房间')
+
+      TabContent(){
+        Text('扩展内容').fontSize(20)
+      }
+      .tabBar('发现')
+
+      TabContent(){
+        Text('各个场景').fontSize(20)
+      }
+      .tabBar('场景')
+
+      TabContent(){
+        Text('我的信息').fontSize(20)
+      }
+      .tabBar('我的')
     }
-
   }
+
 }
