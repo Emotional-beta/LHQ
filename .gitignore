@@ -10,3 +10,7 @@
 /.clang-tidy
 **/.test
 /.appanalyzer
+entry/src/main/ets/pages/DevicePage.ets
+entry/src/main/ets/pages/DiscoverPage.ets
+entry/src/main/ets/pages/ScenePage.ets
+entry/src/main/ets/pages/MinePage.ets
