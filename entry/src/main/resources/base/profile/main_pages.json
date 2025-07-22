@@ -5,7 +5,7 @@
     "pages/SwitchPage",
     "pages/ListPage",
     "pages/PrefPage",
-    "pages/DbPage",
+    "pages/MSPage",
     "pages/NetPage"
   ]
 }
